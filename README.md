@@ -20,10 +20,6 @@ This project is a Flutter application designed to assist Magic: The Gathering pl
 3. Add modules to manage other game mechanics.
 4. Extend support to more strategies and commanders.
 
-## Contribute
-
-If you are interested in collaborating, feel free to create an issue or send a pull request. All help is welcome to make this wizard an indispensable tool for the Magic player community.
-
 ## Resources
 
 - [Official Flutter Documentation](https://docs.flutter.dev/)
