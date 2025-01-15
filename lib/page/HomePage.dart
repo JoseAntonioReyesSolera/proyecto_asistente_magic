@@ -3,7 +3,7 @@
    y ver y guardar los mazos
 */
 import 'package:flutter/material.dart';
-import 'package:proyecto_asistente_magic/page/MazosGuardar.dart';
+import 'package:proyecto_asistente_magic/page/Deck_Manager_Page.dart';
 import 'package:proyecto_asistente_magic/page/Principal.dart';
 
 class Homepage extends StatelessWidget {
@@ -22,12 +22,12 @@ class Homepage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [Colors.deepPurpleAccent, Colors.purple],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 10,
@@ -50,7 +50,12 @@ class Homepage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => MainPage(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainPage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
@@ -60,12 +65,21 @@ class Homepage extends StatelessWidget {
                 ),
                 child: const Text(
                   'Iniciar',
-                  style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () => DeckManagerPage,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DeckManagerPage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purpleAccent,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
@@ -75,7 +89,11 @@ class Homepage extends StatelessWidget {
                 ),
                 child: const Text(
                   'Ver Mazos',
-                  style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
