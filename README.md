@@ -1,16 +1,30 @@
-# proyecto_asistente_magic
+# Game Assistant for Magic: The Gathering
 
-A new Flutter project.
+This project is a Flutter application designed to assist Magic: The Gathering players during their games. The main focus is to provide useful tools that make it easier to manage information in the game, ensuring a smoother and more organized experience.
 
-## Getting Started
+## Key Features
 
-This project is a starting point for a Flutter application.
+- **Stack Manager**: An interactive interface to manage the game Stack, allowing you to sort triggers and track actions in detail as they resolve.
+- **Intuitive Interface**: Designed to be easy to use for both beginner and advanced players.
+- **Tracking Tools**: Keep track of key game information such as damage dealt, creature status, and more.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter**: Main framework for developing the application, ensuring cross-platform compatibility.
+- **Scryfall API**: Used to obtain updated card data from Magic: The Gathering.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Next Steps
+
+1. Implement full Stack functionality with support for complex triggers.
+2. Improve visual design and overall usability.
+3. Add modules to manage other game mechanics.
+4. Extend support to more strategies and commanders.
+
+## Resources
+
+- [Official Flutter Documentation](https://docs.flutter.dev/)
+- [Scryfall API](https://scryfall.com/docs/api)
+
+---
+
+**Note**: a
