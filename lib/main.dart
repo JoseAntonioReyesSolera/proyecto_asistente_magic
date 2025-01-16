@@ -7,17 +7,16 @@ import 'package:proyecto_asistente_magic/provider/deck_provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
+    DeviceOrientation.portraitUp,
   ]).then((_) {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => DeckProvider()),
-      ],
-    child: const MyApp(),
-    ),
-  );
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => DeckProvider()),
+        ],
+        child: const MyApp(),
+      ),
+    );
   });
 }
 
@@ -27,9 +26,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Asistente_MagicTCG',
-        home: const Homepage(),
-      );
+      debugShowCheckedModeBanner: false,
+      title: 'Asistente_MagicTCG',
+      home: const Homepage(),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            viewInsets: MediaQuery.of(context).viewInsets,
+          ),
+          child: child!,
+        );
+      },
+    );
   }
 }

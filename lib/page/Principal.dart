@@ -6,7 +6,9 @@
 */
 /* Página principal del proyecto */
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_asistente_magic/page/Asistent_page.dart';
 import 'package:proyecto_asistente_magic/provider/deck_provider.dart';
 import 'deck_manager_page.dart';
 
@@ -27,17 +29,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo decorativo
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
           // Contenido principal
-          if (selectedDeck == null)
             Center(
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -81,7 +73,6 @@ class _MainPageState extends State<MainPage> {
                         });
                       },
                     ),
-                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -94,50 +85,38 @@ class _MainPageState extends State<MainPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
                       ),
-                      child: const Text('Gestionar Mazos'),
+                      child: const Text(
+                        'Ir a crear un mazo',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
+                    ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => (selectedDeck == null)
+                        ? const SnackBar(
+                            content: Text('Debes seleccionar un mazo antes'),
+                          )
+                        : const AssistantPage(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+              ),
+              child: const Text(
+                'Ir al Asistente',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+                    const SizedBox(height: 10),
+                    
                   ],
                 ),
               ),
             )
-          else
-            Stack(
-              children: [
-                Center(
-                  child: Text(
-                    'Mazo Seleccionado: $selectedDeck',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Positioned(
-                  bottom: 16,
-                  right: 16,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        selectedDeck = null; // Regresa a la selección de mazo
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
-                      padding: const EdgeInsets.all(8),
-                      shape: const CircleBorder(),
-                      minimumSize: const Size(40, 40),
-                    ),
-                    child: const Icon(
-                      Icons.edit,
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
         ],
       ),
     );

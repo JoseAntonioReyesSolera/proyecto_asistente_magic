@@ -54,7 +54,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/38643_Mat_MTG_FND_1Player_Front.webp
+    - assets/Board_Anatomy_16_9.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
