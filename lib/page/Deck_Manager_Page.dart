@@ -9,15 +9,15 @@ class DeckManagerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final deckProvider = Provider.of<DeckProvider>(context);
     final TextEditingController _deckNameController = TextEditingController();
-    final TextEditingController _deckContentController =
-        TextEditingController();
+    final TextEditingController _deckContentController = TextEditingController();
 
-    void _addDeck() {
+    void _showDeckDialog(BuildContext context, DeckProvider deckProvider,
+        {required bool isEditing, String? currentName}) {
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Añadir nuevo mazo'),
+            title: Text(isEditing ? 'Editar mazo' : 'Añadir nuevo mazo'),
             content: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -40,8 +40,7 @@ class DeckManagerPage extends StatelessWidget {
                         labelText: 'Contenido del mazo',
                         border: OutlineInputBorder(),
                       ),
-                      maxLines:
-                          5, // Límite de líneas para evitar diálogos enormes
+                      maxLines: 5,
                       keyboardType: TextInputType.multiline,
                     ),
                   ],
@@ -62,10 +61,19 @@ class DeckManagerPage extends StatelessWidget {
                   final name = _deckNameController.text.trim();
                   final content = _deckContentController.text.trim();
                   if (name.isNotEmpty && content.isNotEmpty) {
-                    deckProvider.addDeck(name, content);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Mazo "$name" añadido con éxito')),
-                    );
+                    if (isEditing && currentName != null) {
+                      // Editar mazo existente
+                      deckProvider.updateDeck(currentName, name, content);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Mazo "$name" actualizado con éxito')),
+                      );
+                    } else {
+                      // Añadir nuevo mazo
+                      deckProvider.addDeck(name, content);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Mazo "$name" añadido con éxito')),
+                      );
+                    }
                     _deckNameController.clear();
                     _deckContentController.clear();
                     Navigator.pop(context);
@@ -82,6 +90,18 @@ class DeckManagerPage extends StatelessWidget {
           );
         },
       );
+    }
+
+    void _addDeck() {
+      _deckNameController.clear();
+      _deckContentController.clear();
+      _showDeckDialog(context, deckProvider, isEditing: false);
+    }
+
+    void _editDeck(String currentName, String currentContent) {
+      _deckNameController.text = currentName;
+      _deckContentController.text = currentContent;
+      _showDeckDialog(context, deckProvider, isEditing: true, currentName: currentName);
     }
 
     return Scaffold(
@@ -106,14 +126,13 @@ class DeckManagerPage extends StatelessWidget {
           : ListView(
               padding: const EdgeInsets.all(16.0),
               children: deckProvider.decks.keys.map((deckName) {
+                final deckContent = deckProvider.decks[deckName]!;
                 return Card(
                   elevation: 3,
                   child: ListTile(
                     title: Text(deckName),
                     subtitle: const Text('Toca para editar o eliminar'),
-                    onTap: () {
-                      // Navegar o editar el mazo
-                    },
+                    onTap: () => _editDeck(deckName, deckContent),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {

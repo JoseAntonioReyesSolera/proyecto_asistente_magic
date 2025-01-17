@@ -10,10 +10,10 @@ class DeckProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void renameDeck(String oldName, String newName) {
+  void updateDeck(String oldName, String newName, String newContent) {
     if (_decks.containsKey(oldName)) {
-      final content = _decks.remove(oldName)!;
-      _decks[newName] = content;
+      _decks.remove(oldName);
+      _decks[newName] = newContent;
       notifyListeners();
     }
   }
@@ -22,4 +22,6 @@ class DeckProvider with ChangeNotifier {
     _decks.remove(name);
     notifyListeners();
   }
+
+  
 }
